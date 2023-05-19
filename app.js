@@ -21,7 +21,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 const cors = require('cors');
 app.use(cors()); // Habilita el middleware cors
-
+connectDatabase()
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
