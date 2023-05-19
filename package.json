@@ -7,7 +7,9 @@
     "star": "nodemon app.js"
   },
   "dependencies": {
+    "axios": "^1.4.0",
     "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
     "debug": "~2.6.9",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
@@ -16,7 +18,8 @@
     "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.21",
     "mongoose": "^7.1.1",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "openai": "^3.2.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"

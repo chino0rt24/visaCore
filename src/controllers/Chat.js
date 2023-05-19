@@ -1,16 +1,11 @@
-var express = require('express');
-var router = express.Router();
-const ChatController = require('../src/controllers/Chat')
 const axios = require('axios');
+require('dotenv').config();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
 
-router.post('/chat', async(req, res) => {
-  console.log("apasjdoiajwdoi");
-  const { userInput } = req.body;
+const Chat = async(req, res) =>
+{
+    console.log("Hola");
+    const { userInput } = req.body;
     try {
       // Realiza la solicitud al API de OpenAI
       const response = await axios.post('https://api.openai.com/v1/engines/davinci-codex/completions', {
@@ -20,10 +15,10 @@ router.post('/chat', async(req, res) => {
       }, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer '+ process.env.OPENAI_KEY, // Reemplaza con tu API key de OpenAI
+          'Authorization': 'Bearer '+ "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", // Reemplaza con tu API key de OpenAI
         },
       });
-  console.log(response);
+  
       // Obtiene la respuesta de OpenAI
       const { choices } = response.data;
       const aiResponse = choices[0].text.trim();
@@ -34,6 +29,8 @@ router.post('/chat', async(req, res) => {
       console.error('Error al realizar la solicitud a OpenAI:', error);
       res.status(500).json({ error: 'Ocurrió un error al procesar la solicitud.' });
     }
-});
+}
 
-module.exports = router;
+module.exports = {
+    Chat
+}

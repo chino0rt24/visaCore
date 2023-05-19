@@ -19,6 +19,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+const cors = require('cors');
+app.use(cors()); // Habilita el middleware cors
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -27,8 +29,20 @@ app.use('/users', usersRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method',
+  );
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+
+  next();
+});
 // Llamar a la función para conectar la base de datos
-connectDatabase();
+// connectDatabase();
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
